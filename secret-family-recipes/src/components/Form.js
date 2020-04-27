@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
+import { connect } from 'react-redux';
+
 
 import SignUp from "./SignUp"
+
+import { postRegister} from '../actions/registerActions.js'
 
 const initialFormValues={
     username: '',
@@ -35,8 +39,8 @@ const formSchema = yup.object().shape({
 
 
 
-function Form(){
-    const [newuser, setNewuser]=useState()
+const Form =props =>{
+    const [newUser, setNewuser]=useState()
     const [formValues, setFormValues]=useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [formDisabled, setFormDisabled] = useState(true)  //disables submit button if input isn't valid
@@ -53,13 +57,14 @@ function Form(){
             username: formValues.username,
             password: formValues.password,
         }
-        setNewuser(createUser)
+        //setNewuser(createUser)
+        console.log(createUser)
+        props.postRegister(createUser)
         setFormValues(initialFormValues)
     }
     const changeHandler = function(event){
         const name = event.target.name
         const value= event.target.value
-        console.log(newuser)
         yup
             .reach(formSchema, name)
             .validate(value)
@@ -81,6 +86,7 @@ function Form(){
             ...formValues,
             [name]: value,
         })
+        console.log(formValues)
     }
     
     return(
@@ -98,4 +104,16 @@ function Form(){
     )
 }
 
-export default Form
+//data from reducer
+const mapStateToProps = state => {
+    return {
+
+      registerData: state.registerReducer
+    };
+  };
+  
+  export default connect(
+  mapStateToProps,
+  {postRegister}
+  )(Form)
+
