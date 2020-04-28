@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { connect } from 'react-redux'; //i think you might need this
+import { connect } from 'react-redux'; 
 
-import {postLogin} from '../actions/loginActions.js' //for you
+import {postLogin} from '../actions/loginActions.js' 
 
-export default function Login(props) {
-  const [user, setUser]=useState("")
+
+const Login =(props) => {
+  //const [user, setUser]=useState("")
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,7 +21,8 @@ export default function Login(props) {
         username: username,
         password: password,
     }
-    setUser(inputtedUser)
+    //setUser(inputtedUser)
+    props.postLogin(inputtedUser)
     console.log(inputtedUser)
   }
   
@@ -28,7 +30,7 @@ export default function Login(props) {
     <div style={{width: '100%'}}>
       <h1>Login</h1>
       <form onSubmit={onSubmit}>
-          <label>Email</label>
+          <label>Username</label>
           <input
             type="text"
             value={username}
@@ -47,3 +49,16 @@ export default function Login(props) {
     </div>
   );
 }
+
+//data from reducer
+const mapStateToProps = state => {
+  return {
+
+    loginData: state.loginReducer
+  };
+};
+
+export default connect(
+mapStateToProps,
+{postLogin}
+)(Login)
