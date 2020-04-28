@@ -8,7 +8,7 @@ export const POST_REGISTER_FAILURE = 'POST_REGISTER_FAILURE';
 export const postRegister = (credentials) => dispatch =>{
     dispatch({type:POST_REGISTER_START});
     axiosWithAuth()
-    .post('/register',credentials)
+    .post('/auth/register',credentials)
     .then(res =>{
         console.log(res.data)
         dispatch({type:POST_REGISTER_SUCCESS, payload: res.data});
