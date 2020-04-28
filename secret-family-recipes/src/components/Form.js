@@ -40,7 +40,6 @@ const formSchema = yup.object().shape({
 
 
 const Form =props =>{
-    const [newUser, setNewuser]=useState()
     const [formValues, setFormValues]=useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [formDisabled, setFormDisabled] = useState(true)  //disables submit button if input isn't valid
@@ -57,7 +56,6 @@ const Form =props =>{
             username: formValues.username,
             password: formValues.password,
         }
-        //setNewuser(createUser)
         console.log(createUser)
         props.postRegister(createUser)
         setFormValues(initialFormValues)

@@ -18,7 +18,7 @@ import {
           return{...state, isPOSTing: true}
         case POST_LOGIN_SUCCESS:
           console.log('POST_LOGIN_SUCCESS')
-          return{...state, isPOSTing:false, url:action.payload.url, error:""}
+          return{...state, isPosting:false, url:action.payload.url, error:""}
         case POST_LOGIN_FAILURE:
           console.log('POST_LOGIN_ERROR')
           return{...state, isPOSTing:false, error: action.payload}
