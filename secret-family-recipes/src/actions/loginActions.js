@@ -11,6 +11,7 @@ export const postLogin = (credentials) => dispatch =>{
     .post('/login',credentials)
     .then(res =>{
         localStorage.setItem('token', JSON.stringify(res.data.token));
+        localStorage.setItem('username', JSON.stringify(credentials.username));
         console.log(res.data)
         dispatch({type:POST_LOGIN_SUCCESS, payload: res.data});
     })
