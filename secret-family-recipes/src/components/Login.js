@@ -1,29 +1,26 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux'; 
+import { useHistory } from 'react-router'; 
+
 
 import {postLogin} from '../actions/loginActions.js' 
 
 
 const Login =(props) => {
-  //const [user, setUser]=useState("")
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const match = useHistory();
   function validateForm() {
     return username.length > 0 && password.length > 0;
   }
 
-  function onSubmit(event) {
+   function onSubmit(event) {
     event.preventDefault();
-    console.log(username)
-    console.log(password)
     const inputtedUser={
         username: username,
         password: password,
     }
-    //setUser(inputtedUser)
-    props.postLogin(inputtedUser)
-    console.log(inputtedUser)
+    props.postLogin(inputtedUser, match) 
   }
   
   return (

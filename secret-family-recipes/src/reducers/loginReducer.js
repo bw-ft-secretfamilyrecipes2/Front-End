@@ -5,8 +5,10 @@ import {
   } from '../actions/loginActions.js'
   
   export const intialState = {
+    userID:'',
+    username:'',
     token:'',
-    isPosting: false,
+    isPosting:false,
     error: ''
     };
   
@@ -15,13 +17,13 @@ import {
       switch (action.type){
         case POST_LOGIN_START:
           console.log('POST_LOGIN_START')
-          return{...state, isPOSTing: true}
+          return{...state, isPosting: true}
         case POST_LOGIN_SUCCESS:
           console.log('POST_LOGIN_SUCCESS')
-          return{...state, isPosting:false, url:action.payload.url, error:""}
+          return{...state, isPosting:false, userID:action.payload.loggedUser.id, username:action.payload.loggedUser.username, error:""}
         case POST_LOGIN_FAILURE:
-          console.log('POST_LOGIN_ERROR')
-          return{...state, isPOSTing:false, error: action.payload}
+          console.log('POST_LOGIN_ERROR', action.payload)
+          return{...state, isPosting:false, error: action.payload}
   
         
       
