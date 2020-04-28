@@ -5,8 +5,20 @@ export const GET_RECIPES_START = 'GET_RECIPES_START';
 export const GET_RECIPES_SUCCESS = 'GET_RECIPES_SUCCESS';
 export const GET_RECIPES_FAILURE = 'GET_RECIPES_FAILURE';
 
+export const POST_RECIPES_START = 'POST_RECIPES_START';
+export const POST_RECIPES_SUCCESS = 'POST_RECIPES_SUCCESS';
+export const POST_RECIPES_FAILURE = 'POST_RECIPES_FAILURE';
 
-//makes a call to randomdog api and returns media of a dog when succesful
+export const EDIT_RECIPES_START = 'EDIT_RECIPES_START';
+export const EDIT_RECIPES_SUCCESS = 'EDIT_RECIPES_SUCCESS';
+export const EDIT_RECIPES_FAILURE = 'EDIT_RECIPES_FAILURE';
+
+export const DELETE_RECIPES_START = 'DELETE_RECIPES_START';
+export const DELETE_RECIPES_SUCCESS = 'DELETE_RECIPES_SUCCESS';
+export const DELETE_RECIPES_FAILURE = 'DELETE_RECIPES_FAILURE';
+
+
+//makes a call to backend api and returns an array of recipes
 export const getRecipes = (userID) => dispatch =>{
     
     dispatch({type:GET_RECIPES_START});
@@ -20,4 +32,45 @@ export const getRecipes = (userID) => dispatch =>{
         dispatch({type:GET_RECIPES_FAILURE, payload: err})
     })
 }
-
+//makes a call to backend api and adds a recipe
+export const addRecipe = (recipe) => dispatch =>{
+    
+    dispatch({type:POST_RECIPES_START});
+    axiosWithAuth()
+    .post(`/users/1/recipes`, recipe)
+    .then(res =>{
+        dispatch({type:POST_RECIPES_SUCCESS, payload: res.data});
+        console.log(res.data,'res data')
+    })
+    .catch(err =>{
+        dispatch({type:POST_RECIPES_FAILURE, payload: err})
+    })
+}
+//makes a call to backend api and updates a recipe
+export const editRecipe = (recipeID, recipe) => dispatch =>{
+    
+    dispatch({type:POST_RECIPES_START});
+    axiosWithAuth()
+    .put(`/users/1/recipes/${recipeID}`, recipe)
+    .then(res =>{
+        dispatch({type:POST_RECIPES_SUCCESS, payload: res.data});
+        console.log(res.data,'res data')
+    })
+    .catch(err =>{
+        dispatch({type:POST_RECIPES_FAILURE, payload: err})
+    })
+}
+//makes a call to the backend api and deletes a recipe
+export const deleteRecipe = (recipeID) => dispatch =>{
+    
+    dispatch({type:POST_RECIPES_START});
+    axiosWithAuth()
+    .delete(`/users/1/recipes${recipeID}`)
+    .then(res =>{
+        dispatch({type:POST_RECIPES_SUCCESS, payload: res.data});
+        console.log(res.data,'res data')
+    })
+    .catch(err =>{
+        dispatch({type:POST_RECIPES_FAILURE, payload: err})
+    })
+}

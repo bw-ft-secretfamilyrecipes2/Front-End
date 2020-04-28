@@ -4,7 +4,7 @@ export const POST_REGISTER_START = 'POST_REGISTER_START';
 export const POST_REGISTER_SUCCESS = 'POST_REGISTER_SUCCESS';
 export const POST_REGISTER_FAILURE = 'POST_REGISTER_FAILURE';
 
-//makes a call to randomdog api and returns media of a dog when succesful
+//makes a call to backend api and registers a user
 export const postRegister = (credentials) => dispatch =>{
     dispatch({type:POST_REGISTER_START});
     axiosWithAuth()
