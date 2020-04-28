@@ -1,14 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import './App.css';
-import Form from "./components/Form"
-import Login from "./components/Login"
+import Nav from "./components/Nav.js"
+import Form from "./components/Form.js"
+import Login from "./components/Login.js"
 
 function App() {
   return (
     <div className="App">
+      <Router>
+      <Nav/>
+      <Route exact path='/'>
       <Form />
+      </Route>
+      <Route path='/login'>
       <Login />
+      </Route>
+      </Router>
     </div>
     
   );
