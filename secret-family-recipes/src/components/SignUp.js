@@ -24,6 +24,7 @@ function SignUp(props) {
                     type='text'
                 />
             </label>
+            <br/>
             <label>Password:
                 <input
                     value={values.password}
@@ -32,6 +33,7 @@ function SignUp(props) {
                     type='password'
                 />
             </label>
+            <br/>
             <label>Confirm Password:
                 <input
                     value={values.confirmPassword}
@@ -40,6 +42,7 @@ function SignUp(props) {
                     type='password'
                 />
             </label>
+            <br/>
             <button onClick={onSubmit} disabled={disabled}>Sign Up</button>
 
         </form>
