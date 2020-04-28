@@ -9,11 +9,14 @@ const Recipes = props =>{
         username: props.loginData.username,
         id: props.recipesData.recipes.length,
         user_id: props.loginData.userID,
+        recipeName:'',
         description:'',
         imageURL:'',
         prepTime:'',
         cookTime:'',
-        yield:''
+        yield:'',
+        ingredients:[],
+        directions:[]
     })
 
 
