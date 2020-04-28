@@ -40,3 +40,19 @@
     transform: rotate(360deg);
   }
 }
+
+.nav{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav a{
+  text-decoration: none;
+  margin: 0 1%;
+  color:black;
+}
+
+.nav a:hover{
+  text-transform: uppercase;
+}

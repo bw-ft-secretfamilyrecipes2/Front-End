@@ -5,15 +5,15 @@ const Nav = props =>{
     return(
         <header>
             <h1>Secret Family Recipes</h1>
-            <nav class="btn">
+            <nav class="nav">
                 <Link to='/'>
-                <a href="#">Home</a>
+                <p href="#">Home</p>
                 </Link>
                 <Link to='/about'>
-                <a href="#">About</a>
+                <p href="#">About</p>
                 </Link>
                 <Link to='/login'>
-                <a href="#">Login</a>
+                <p href="#">Login</p>
                 </Link>
             </nav>
         </header>
