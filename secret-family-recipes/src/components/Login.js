@@ -5,22 +5,39 @@ import { useHistory } from 'react-router';
 
 import {postLogin} from '../actions/loginActions.js' 
 
+const initialFormValues={
+  username: '',
+  password: '',
+}
 
 const Login =(props) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  //const [user, setUser]=useState("") I don't think you needed this.
+  const [formValues, setFormValues]=useState(initialFormValues)
+  
   const match = useHistory();
+
   function validateForm() {
-    return username.length > 0 && password.length > 0;
+    return formValues.username.length > 0 && formValues.password.length > 0;
   }
 
    function onSubmit(event) {
     event.preventDefault();
     const inputtedUser={
-        username: username,
-        password: password,
+        username: formValues.username,
+        password: formValues.password,
     }
-    props.postLogin(inputtedUser, match) 
+    //setUser(inputtedUser)
+    console.log("LOGIN INFO CAPTURED")
+    console.log(inputtedUser)
+    props.postLogin(inputtedUser, match)
+  }
+  const changeHandler = function(event){
+    const name = event.target.name
+    const value= event.target.value
+    setFormValues({
+        ...formValues,
+        [name]: value,
+    })
   }
   
   return (
@@ -30,15 +47,19 @@ const Login =(props) => {
           <label>Username</label>
           <input
             type="text"
-            value={username}
-            onChange={function(event){setUsername(event.target.value)}}
+            name="username"
+            value={formValues.username}
+            onChange={changeHandler}
           />
+          <br />
           <label>Password</label>
           <input
-            value={password}
-            onChange={function(event){setPassword(event.target.value)}}
             type="password"
+            name="password"
+            value={formValues.password}
+            onChange={changeHandler}
           />
+          <br />
         <button disabled={!validateForm()} type="submit">
           Login
         </button>
