@@ -20,3 +20,4 @@ export const getRecipes = (userID) => dispatch =>{
         dispatch({type:GET_RECIPES_FAILURE, payload: err})
     })
 }
+

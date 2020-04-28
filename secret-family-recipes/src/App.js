@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { useHistory } from 'react-router'; 
+import React from 'react';
+import { Route } from "react-router-dom";
 
 import './App.css';
 import Nav from "./components/Nav.js"
