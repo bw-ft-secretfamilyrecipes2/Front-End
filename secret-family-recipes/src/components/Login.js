@@ -11,7 +11,6 @@ const initialFormValues={
 }
 
 const Login =(props) => {
-  //const [user, setUser]=useState("") I don't think you needed this.
   const [formValues, setFormValues]=useState(initialFormValues)
   
   const match = useHistory();
@@ -26,7 +25,6 @@ const Login =(props) => {
         username: formValues.username,
         password: formValues.password,
     }
-    //setUser(inputtedUser)
     console.log("LOGIN INFO CAPTURED")
     console.log(inputtedUser)
     props.postLogin(inputtedUser, match)
