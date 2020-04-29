@@ -84,7 +84,9 @@ const Recipes = (props) => {
     })
     const [ingredients, setIngredients] = useState([])
     const [directions, setDirections] = useState([])
+
     const [addRecipe, setAddRecipe] = useState( false)
+    
     const [recipeErrors, setRecipeErrors] = useState(initialRecipeErrors)
     const [submitDisabled, setSubmitDisabled] = useState(true)
 
@@ -147,7 +149,6 @@ const Recipes = (props) => {
     const ingredientsChange = function (event) {
    
         ingredients[event.target.id] = { ingredient: event.target.value }
-        console.log(newRecipe)
     }
 
     const addStep = function (event) {
@@ -163,7 +164,6 @@ const Recipes = (props) => {
     // }
     const directionsChange = function (event) {
         directions[event.target.id] = { direction: event.target.value }
-        console.log(newRecipe)
     }
     return (
         <div className="recipesContainer">
