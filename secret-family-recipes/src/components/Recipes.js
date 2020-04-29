@@ -179,6 +179,7 @@ const Recipes = (props) => {
                 onSubmit={onSubmit}
                 submitDisabled={submitDisabled}
                 recipeErrors={recipeErrors}
+                setAddRecipe={setAddRecipe}
             />
     }
             {

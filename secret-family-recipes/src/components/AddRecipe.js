@@ -126,7 +126,8 @@ export default function AddRecipe(props){
                 }
                 <br />
                 {/* {console.log(submitDisabled)} */}
-                <button disabled={submitDisabled}>Add Recipe</button>
+                <button type='submit' disabled={submitDisabled}>Add Recipe</button>
+                <button onClick={()=> props.setAddRecipe(false)}>Cancel </button>
             </form>
         </div>
     )
