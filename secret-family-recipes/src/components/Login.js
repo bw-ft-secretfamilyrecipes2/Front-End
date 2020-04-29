@@ -44,21 +44,23 @@ const Login =(props) => {
     <div style={{width: '100%'}}>
       <h1>Login</h1>
       <form onSubmit={onSubmit}>
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
-            value={formValues.username}
-            onChange={changeHandler}
-          />
+          <label>Username
+            <input
+              type="text"
+              name="username"
+              value={formValues.username}
+              onChange={changeHandler}
+            />
+          </label>
           <br />
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formValues.password}
-            onChange={changeHandler}
-          />
+          <label>Password
+            <input
+              type="password"
+              name="password"
+              value={formValues.password}
+              onChange={changeHandler}
+            />
+          </label>
           <br />
         <button disabled={!validateForm()} type="submit">
           Login
