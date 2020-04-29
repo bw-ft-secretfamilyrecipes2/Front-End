@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup'
 import { connect } from 'react-redux';
-
+import AddRecipe from './AddRecipe'
+import RecipeCard from './RecipeCard'
 import { getRecipes, addRecipe } from '../actions/recipesActions.js'
 
-function arrayRemove(arr, value) {
-    return arr.filter(function (element) { return element != value; });
-}
+
 const initialRecipeValues = {
     recipeName: '',
     description: '',
@@ -26,6 +25,28 @@ const initialRecipeErrors = {
     yield: '',
 }
 
+const dummyData = [
+    {
+        recipeName: `Mama's Special Breakfast Burritos`,
+        description: `Juicy filled egg, ham, cheese, sausage burritos. Big mamas burritos yummy yummy. Juicy filled egg, ham, cheese, sausage burritos. Big mamas burritos yummy yummy. Juicy filled egg, ham, cheese, sausage burritos. Big mamas burritos yummy yummy`,
+        imageURL: 'https://skinnyms.com/wp-content/uploads/2016/10/Zucchini-and-Egg-Breakfast-Burrito-Recipe.jpg',
+        prepTime: '10 minutes',
+        cookTime: '20 minutes',
+        yield: '5 burritos',
+        ingredients: [{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce is so good man. You must have this sauce.'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'}],
+        directions: [{direction: 'stuff everything into a box and into the microwave stuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwave'},{direction: 'EAT IT'}]
+    },
+    {
+        recipeName: `Big Tyrones Steak Stew`,
+        description: 'One swagalicious meal',
+        imageURL: 'https://foremangrillrecipes.com/wp-content/uploads/2013/06/featured-ribeye-steak-foreman-grill.jpg',
+        prepTime: '5 minutes',
+        cookTime: '30 minutes',
+        yield: '1 big ol steak',
+        ingredients: [{ingredient: 'That aunt jemmia hot sauce'}, {ingredient: 'powdered swag'}],
+        directions: [{direction: 'cook that stuff'},{direction: 'puddit in a pan and sauce that'},{direction: 'Sprinkle a bit of swagger'}]
+    }
+]
 const formSchema = yup.object().shape({
     recipeName: yup
         .string()
@@ -177,118 +198,30 @@ const Recipes = (props) => {
         console.log(newRecipe)
     }
     return (
-        <div>
-            <p>Add Recipe</p>
-            <form onSubmit={onSubmit}>
-                <label>Recipe Name:
-                    <input
-                        name="recipeName"
-                        value={newRecipe.recipeName}
-                        type="text"
-                        onChange={changeHandler}
-                    />
-                    {recipeErrors.recipeName ? <p>{recipeErrors.recipeName}</p> : <div></div>}
-                </label>
-                <br />
-                <label>Description:
-                    <input
-                        name="description"
-                        value={newRecipe.description}
-                        type="text"
-                        onChange={changeHandler}
-                    />
-                    {recipeErrors.description ? <p>{recipeErrors.description}</p> : <div></div>}
-                </label>
-                <br />
-                <label>Image URL:
-                    <input
-                        name="imageURL"
-                        value={newRecipe.imageURL}
-                        type="text"
-                        onChange={changeHandler}
-                    />
-                    {recipeErrors.imageURL ? <p>{recipeErrors.imageURL}</p> : <div></div>}
-                </label>
-                <br />
-                <label>Preparation Time:
-                    <input
-                        name="prepTime"
-                        value={newRecipe.prepTime}
-                        type="text"
-                        onChange={changeHandler}
-                    />
-                    {recipeErrors.prepTime ? <p>{recipeErrors.prepTime}</p> : <div></div>}
-                </label>
-                <br />
-                <label>Cook Time:
-                    <input
-                        name="cookTime"
-                        value={newRecipe.cookTime}
-                        type="text"
-                        onChange={changeHandler}
-                    />
-                    {recipeErrors.cookTime ? <p>{recipeErrors.cookTime}</p> : <div></div>}
-                </label>
-                <br />
-                <label>Yield:
-                    <input
-                        name="yield"
-                        value={newRecipe.yield}
-                        type="text"
-                        onChange={changeHandler}
-                    />
-                    {recipeErrors.yield ? <p>{recipeErrors.yield}</p> : <div></div>}
-                </label>
-                <br />
-                <label>Ingredients:
-                    <button onClick={addIngredient}>+</button>
-                </label>
-                <br />
-                {
-                    ingredients.map(function (val, idx) {
-                        let ingredientId = `ingredient-${idx}`
-                        return (
-                            <div key={idx}>
-                                <label htmlFor={ingredientId}>{`Ingredient #${idx + 1}`}</label>
-                                <input
-                                    type="text"
-                                    name='ingredients'
-                                    data-id={idx}
-                                    id={idx}
-                                    className="ingredientInput"
-                                    onChange={ingredientsChange}
-                                />
-                                {/*<button onClick={removeIngredient}>-</button>*/}
-                            </div>
-                        )
-                    })
-                }
-                <label>Directions:
-                    <button onClick={addStep}>+</button>
-                </label>
-                {
-                    directions.map(function (val, idx) {
-                        let stepId = `step-${idx}`
-                        return (
-                            <div key={idx}>
-                                <label htmlFor={stepId}>{`Step #${idx + 1}`}</label>
-                                <input
-                                    type="text"
-                                    name='directions'
-                                    data-id={idx}
-                                    id={idx}
-                                    className="step"
-                                    onChange={directionsChange}
-                                />
-                                {/*<button onClick={removeStep}>-</button>*/}
-                            </div>
-                        )
-                    })
-                }
-                <br />
-                {/* {console.log(submitDisabled)} */}
-                <button disabled={submitDisabled}>Add Recipe</button>
-            </form>
+        <div className="recipesContainer">
+            <AddRecipe
+                newRecipe={newRecipe} 
+                ingredients={ingredients}
+                directions={directions}
+                addIngredient={addIngredient}
+                addStep={addStep}
+                changeHandler={changeHandler} 
+                ingredientsChange={ingredientsChange}
+                directionsChange={directionsChange}
+                onSubmit={onSubmit}
+                submitDisabled={submitDisabled}
+                recipeErrors={recipeErrors}
+            />
+            {
+                dummyData.map(function(recipe){
+                    return(
+                        <RecipeCard
+                            recipe={recipe}
+                        />
+                    )
+                })
+            }
+            
         </div>
     )
 }
