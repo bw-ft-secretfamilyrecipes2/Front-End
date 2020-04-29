@@ -84,6 +84,9 @@ const Recipes = (props) => {
     })
     const [ingredients, setIngredients] = useState([])
     const [directions, setDirections] = useState([])
+
+    const [addRecipe, setAddRecipe] = useState( false)
+    
     const [recipeErrors, setRecipeErrors] = useState(initialRecipeErrors)
     const [submitDisabled, setSubmitDisabled] = useState(true)
 
@@ -102,6 +105,7 @@ const Recipes = (props) => {
         setNewRecipe(initialRecipeValues)
         setIngredients([])
         setDirections([])
+        setAddRecipe(false)
     }
     const changeHandler = function (event) {
         const name = event.target.name
@@ -129,8 +133,6 @@ const Recipes = (props) => {
         })
     }
 
-    // console.log(props.recipesData);
-
     const addIngredient = function (event) {
         event.preventDefault()
         setIngredients([
@@ -144,6 +146,7 @@ const Recipes = (props) => {
     //     console.log(ingredients)
     // }
     const ingredientsChange = function (event) {
+   
         ingredients[event.target.id] = { ingredient: event.target.value }
     }
 
@@ -163,6 +166,7 @@ const Recipes = (props) => {
     }
     return (
         <div className="recipesContainer">
+           { addRecipe == false ? <button onClick={()=>setAddRecipe(true)}>Add a recipe</button>:
             <AddRecipe
                 newRecipe={newRecipe} 
                 ingredients={ingredients}
@@ -176,6 +180,7 @@ const Recipes = (props) => {
                 submitDisabled={submitDisabled}
                 recipeErrors={recipeErrors}
             />
+    }
             {
                 dummyData.map(function(recipe){
                     return(
