@@ -23,10 +23,10 @@ export const getRecipes = (userID) => dispatch =>{
     
     dispatch({type:GET_RECIPES_START});
     axiosWithAuth()
-    .get(`/users/1/recipes`)
+    .get(`/users/${userID}/recipes`)
     .then(res =>{
         dispatch({type:GET_RECIPES_SUCCESS, payload: res.data});
-        //console.log(res.data,'res data')
+        console.log(res.data,'res data')
     })
     .catch(err =>{
         dispatch({type:GET_RECIPES_FAILURE, payload: err})

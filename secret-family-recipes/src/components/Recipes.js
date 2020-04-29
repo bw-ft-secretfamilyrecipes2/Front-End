@@ -8,14 +8,17 @@ function arrayRemove(arr, value) {
     return arr.filter(function (element) { return element != value; });
 }
 const initialRecipeValues = {
+    // username: props.loginData.username,
+    // id: props.recipesData.recipes.length,
+    // user_id: props.loginData.userID,
     recipeName: '',
     description: '',
     imageURL: '',
     prepTime: '',
     cookTime: '',
     yield: '',
-    ingredients: [],
-    directions: []
+    //ingredients: [],
+    //directions: []
 }
 const initialRecipeErrors = {
     recipeName: '',
@@ -56,26 +59,23 @@ const formSchema = yup.object().shape({
 
 const Recipes = (props) => {
     const [newRecipe, setNewRecipe] = useState({
-        username: props.loginData.username,
-        id: props.recipesData.recipes.length,
-        user_id: props.loginData.userID,
         recipeName: '',
         description: '',
         imageURL: '',
         prepTime: '',
         cookTime: '',
         yield: '',
-        ingredients: [],
-        directions: []
+        // ingredients: [],
+        //directions: []
     })
-    //ingredient array
     const [ingredients, setIngredients] = useState([])
-    //directions array
     const [directions, setDirections] = useState([])
 
     const [recipeErrors, setRecipeErrors] = useState(initialRecipeErrors)
     const [submitDisabled, setSubmitDisabled] = useState(true)
+
     useEffect(function () {
+        props.getRecipes(props.loginData.userID)
         formSchema.isValid(newRecipe)
             .then(valid => { // either true or false
                 setSubmitDisabled(!valid)
@@ -98,8 +98,8 @@ const Recipes = (props) => {
         //im going to clean this up in login and register too
         //depending on what shape we send to this end point, we might send the recipe without the directions and 
         //ingredients, just waiting on backend to give us more instructions. we might not even
-
-        //props.addRecipe(newRecipe)
+        console.log(newRecipe)
+        props.addRecipe(props.loginData.userID, newRecipe)
         setNewRecipe(initialRecipeValues)
         setIngredients([])
         setDirections([])
@@ -131,10 +131,6 @@ const Recipes = (props) => {
         console.log({ newRecipe })
     }
 
-    useEffect(() => {
-        props.getRecipes(props.loginData.userID)
-    }, [])
-
     // console.log(props.recipesData);
 
     const addIngredient = function (event) {
@@ -156,7 +152,7 @@ const Recipes = (props) => {
         //if event.target.name == ingredients then ingredients[event.target.id]={ingredient: event.target.value}
         //we can expand on this further and use an || and use the same if for both ingredients and directions
         ingredients[event.target.id] = { ingredient: event.target.value }
-        newRecipe.ingredients = ingredients
+        //newRecipe.ingredients = ingredients
         console.log(newRecipe)
     }
 
@@ -173,7 +169,7 @@ const Recipes = (props) => {
     // }
     const directionsChange = function (event) {
         directions[event.target.id] = { direction: event.target.value }
-        newRecipe.directions = directions
+        //newRecipe.directions = directions
         console.log(newRecipe)
     }
     return (
