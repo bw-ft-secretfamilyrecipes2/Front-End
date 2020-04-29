@@ -131,7 +131,6 @@ const Recipes = (props) => {
             ...newRecipe,
             [name]: value,
         })
-        console.log({ newRecipe })
     }
 
     const addIngredient = function (event) {
