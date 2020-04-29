@@ -5,7 +5,7 @@ const Nav = props =>{
     return(
         <header>
             <h1>Secret Family Recipes</h1>
-            <nav class="nav">
+            <nav className="nav">
                 <Link to='/'>
                 <p href="#">Home</p>
                 </Link>

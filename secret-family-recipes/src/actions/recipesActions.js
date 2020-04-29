@@ -26,18 +26,18 @@ export const getRecipes = (userID) => dispatch =>{
     .get(`/users/1/recipes`)
     .then(res =>{
         dispatch({type:GET_RECIPES_SUCCESS, payload: res.data});
-        console.log(res.data,'res data')
+        //console.log(res.data,'res data')
     })
     .catch(err =>{
         dispatch({type:GET_RECIPES_FAILURE, payload: err})
     })
 }
 //makes a call to backend api and adds a recipe
-export const addRecipe = (recipe) => dispatch =>{
+export const addRecipe = (userID,recipe) => dispatch =>{
     
     dispatch({type:POST_RECIPES_START});
     axiosWithAuth()
-    .post(`/users/1/recipes`, recipe)
+    .post(`/users/${userID}/recipes`, recipe)
     .then(res =>{
         dispatch({type:POST_RECIPES_SUCCESS, payload: res.data});
         console.log(res.data,'res data')
@@ -47,11 +47,11 @@ export const addRecipe = (recipe) => dispatch =>{
     })
 }
 //makes a call to backend api and updates a recipe
-export const editRecipe = (recipeID, recipe) => dispatch =>{
+export const editRecipe = (userID, recipeID, recipe) => dispatch =>{
     
     dispatch({type:POST_RECIPES_START});
     axiosWithAuth()
-    .put(`/users/1/recipes/${recipeID}`, recipe)
+    .put(`/users/${userID}/recipes/${recipeID}`, recipe)
     .then(res =>{
         dispatch({type:POST_RECIPES_SUCCESS, payload: res.data});
         console.log(res.data,'res data')
@@ -61,11 +61,11 @@ export const editRecipe = (recipeID, recipe) => dispatch =>{
     })
 }
 //makes a call to the backend api and deletes a recipe
-export const deleteRecipe = (recipeID) => dispatch =>{
+export const deleteRecipe = (userID, recipeID) => dispatch =>{
     
     dispatch({type:POST_RECIPES_START});
     axiosWithAuth()
-    .delete(`/users/1/recipes${recipeID}`)
+    .delete(`/users/${userID}/recipes${recipeID}`)
     .then(res =>{
         dispatch({type:POST_RECIPES_SUCCESS, payload: res.data});
         console.log(res.data,'res data')
