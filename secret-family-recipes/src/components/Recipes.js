@@ -12,7 +12,7 @@ const initialRecipeValues = {
     imageURL: '',
     prepTime: '',
     cookTime: '',
-    yield: '',
+    yields: '',
 }
 const initialRecipeErrors = {
     recipeName: '',
@@ -20,7 +20,7 @@ const initialRecipeErrors = {
     imageURL: '',
     prepTime: '',
     cookTime: '',
-    yield: '',
+    yields: '',
 }
 
 const dummyData = [
@@ -30,7 +30,7 @@ const dummyData = [
         imageURL: 'https://skinnyms.com/wp-content/uploads/2016/10/Zucchini-and-Egg-Breakfast-Burrito-Recipe.jpg',
         prepTime: '10 minutes',
         cookTime: '20 minutes',
-        yield: '5 burritos',
+        yields: '5 burritos',
         ingredients: [{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce is so good man. You must have this sauce.'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'}],
         directions: [{direction: 'stuff everything into a box and into the microwave stuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwave'},{direction: 'EAT IT'}]
     },
@@ -40,7 +40,7 @@ const dummyData = [
         imageURL: 'https://foremangrillrecipes.com/wp-content/uploads/2013/06/featured-ribeye-steak-foreman-grill.jpg',
         prepTime: '5 minutes',
         cookTime: '30 minutes',
-        yield: '1 big ol steak',
+        yields: '1 big ol steak',
         ingredients: [{ingredient: 'That aunt jemmia hot sauce'}, {ingredient: 'powdered swag'}],
         directions: [{direction: 'cook that stuff'},{direction: 'puddit in a pan and sauce that'},{direction: 'Sprinkle a bit of swagger'}]
     }
@@ -64,7 +64,7 @@ const formSchema = yup.object().shape({
     cookTime: yup
         .string()
         .required('Cook Time cannot be blank'),
-    yield: yup
+    yields: yup
         .string()
         .required('Please enter a number for the amount of servings this recipe provides.'),
     ingredients: yup
@@ -80,7 +80,7 @@ const Recipes = (props) => {
         imageURL: '',
         prepTime: '',
         cookTime: '',
-        yield: '',
+        yields: '',
     })
     const [ingredients, setIngredients] = useState([])
     const [directions, setDirections] = useState([])

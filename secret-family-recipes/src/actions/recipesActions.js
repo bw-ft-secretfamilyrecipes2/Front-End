@@ -33,12 +33,15 @@ export const getRecipes = (userID) => dispatch =>{
     })
 }
 //makes a call to backend api and adds a recipe
-export const addRecipe = (userID,recipe) => dispatch =>{
+export const addRecipe = (userID,recipe, ingredients, directions) => dispatch =>{
     
     dispatch({type:POST_RECIPES_START});
     axiosWithAuth()
-    .post(`/users/${userID}/recipes`, recipe)
-    .then(res =>{
+    axios.all([
+        axios.post(`/users/${userID}/recipes`, recipe), 
+        requestTwo, 
+        requestThree
+    ]).then(axios.spread((...responses) => {
         dispatch({type:POST_RECIPES_SUCCESS, payload: res.data});
         console.log(res.data,'res data')
     })
