@@ -1,29 +1,29 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as yup from 'yup'
-import { connect } from 'react-redux'; 
+import { connect } from 'react-redux';
 
-import {getRecipes} from '../actions/recipesActions.js' 
+import { getRecipes, addRecipe } from '../actions/recipesActions.js'
 
 function arrayRemove(arr, value) {
-     return arr.filter(function(element){ return element != value; });
-    }
-const initialRecipeValues={
-    recipeName:'',
-    description:'',
-    imageURL:'',
-    prepTime:'',
-    cookTime:'',
-    yield:'',
-    ingredients:[],
-    directions:[]
+    return arr.filter(function (element) { return element != value; });
 }
-const initialRecipeErrors={
-    recipeName:'',
-    description:'',
-    imageURL:'',
-    prepTime:'',
-    cookTime:'',
-    yield:'',
+const initialRecipeValues = {
+    recipeName: '',
+    description: '',
+    imageURL: '',
+    prepTime: '',
+    cookTime: '',
+    yield: '',
+    ingredients: [],
+    directions: []
+}
+const initialRecipeErrors = {
+    recipeName: '',
+    description: '',
+    imageURL: '',
+    prepTime: '',
+    cookTime: '',
+    yield: '',
 }
 
 const formSchema = yup.object().shape({
@@ -45,7 +45,7 @@ const formSchema = yup.object().shape({
     cookTime: yup
         .string()
         .required('Cook Time cannot be blank'),
-    yield: yup 
+    yield: yup
         .string()
         .required('Please enter a number for the amount of servings this recipe provides.'),
     ingredients: yup
@@ -54,59 +54,67 @@ const formSchema = yup.object().shape({
         .string()
 })
 
-const Recipes = (props) =>{
-    //console.log(props.loginData.userID)
+const Recipes = (props) => {
     const [newRecipe, setNewRecipe] = useState({
         username: props.loginData.username,
         id: props.recipesData.recipes.length,
         user_id: props.loginData.userID,
-        recipeName:'',
-        description:'',
-        imageURL:'',
-        prepTime:'',
-        cookTime:'',
-        yield:'',
-        ingredients:[],
-        directions:[]
+        recipeName: '',
+        description: '',
+        imageURL: '',
+        prepTime: '',
+        cookTime: '',
+        yield: '',
+        ingredients: [],
+        directions: []
     })
+    //ingredient array
+    const [ingredients, setIngredients] = useState([])
+    //directions array
+    const [directions, setDirections] = useState([])
+
     const [recipeErrors, setRecipeErrors] = useState(initialRecipeErrors)
     const [submitDisabled, setSubmitDisabled] = useState(true)
-    useEffect(function(){
+    useEffect(function () {
         formSchema.isValid(newRecipe)
             .then(valid => { // either true or false
-            setSubmitDisabled(!valid)
+                setSubmitDisabled(!valid)
             })
     }, [newRecipe])
-    
-    const onSubmit = function(event){
+
+    const onSubmit = function (event) {
         event.preventDefault()
-        const incomingRecipe={
-            recipeName: newRecipe.recipeName,
-            description: newRecipe.description,
-            imageURL: newRecipe.imageURL,
-            prepTime: newRecipe.prepTime,
-            cookTime: newRecipe.cookTime,
-            yield: newRecipe.yield,
-            ingredients: newRecipe.ingredients,
-            directions: newRecipe.directions
-        }
-        console.log(incomingRecipe)
-        props.getRecipes(incomingRecipe)// <--- Probably not right
+        // const incomingRecipe={
+        //     recipeName: newRecipe.recipeName,
+        //     description: newRecipe.description,
+        //     imageURL: newRecipe.imageURL,
+        //     prepTime: newRecipe.prepTime,
+        //     cookTime: newRecipe.cookTime,
+        //     yield: newRecipe.yield,
+        //     ingredients: newRecipe.ingredients,
+        //     directions: newRecipe.directions
+        // }
+        //we actually dont need to shape our object any further, you handled this when using the onChange
+        //im going to clean this up in login and register too
+        //depending on what shape we send to this end point, we might send the recipe without the directions and 
+        //ingredients, just waiting on backend to give us more instructions. we might not even
+
+        //props.addRecipe(newRecipe)
         setNewRecipe(initialRecipeValues)
         setIngredients([])
         setDirections([])
     }
-    const changeHandler = function(event){
+    const changeHandler = function (event) {
         const name = event.target.name
-        const value= event.target.value
+        const value = event.target.value
         yup
             .reach(formSchema, name)
             .validate(value)
             .then(valid => {
                 // CLEAR ERROR
                 setRecipeErrors({
-                ...recipeErrors,
-                [name]: '',
+                    ...recipeErrors,
+                    [name]: '',
                 })
             })
             .catch(error => {
@@ -120,22 +128,20 @@ const Recipes = (props) =>{
             ...newRecipe,
             [name]: value,
         })
-        console.log(newRecipe)
+        console.log({ newRecipe })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         props.getRecipes(props.loginData.userID)
-    },[])
+    }, [])
 
-    console.log(props.recipesData);
-    
-    //ingredient array
-    const [ingredients, setIngredients]=useState([])
-    const addIngredient = function(event){
+    // console.log(props.recipesData);
+
+    const addIngredient = function (event) {
         event.preventDefault()
         setIngredients([
             ...ingredients,
-            {ingredient: ""}
+            { ingredient: "" }
         ])
     }
     // const removeIngredient = function(event){
@@ -143,41 +149,37 @@ const Recipes = (props) =>{
     //     arrayRemove(ingredients, 1)
     //     console.log(ingredients)
     // }
-    const ingredientsChange = function(event){
-        ingredients[event.target.id]={ingredient: event.target.value}
-        newRecipe.ingredients=ingredients
+    const ingredientsChange = function (event) {
+        // you can even do
+        // newRecipe.ingredients[event.target.id]={ingredient: event.target.value}
+        //we can even add this into our changeHandler using if statements,
+        //if event.target.name == ingredients then ingredients[event.target.id]={ingredient: event.target.value}
+        //we can expand on this further and use an || and use the same if for both ingredients and directions
+        ingredients[event.target.id] = { ingredient: event.target.value }
+        newRecipe.ingredients = ingredients
         console.log(newRecipe)
     }
-    //directions array
-    const [directions, setDirections]=useState([])
-    const addStep = function(event){
+
+    const addStep = function (event) {
         event.preventDefault()
         setDirections([
             ...directions,
-            {step: ""}
+            { step: "" }
         ])
     }
     // const removeStep =function(event){
     //     event.preventDefault()
-        
+
     // }
-    const directionsChange = function(event){
-        directions[event.target.id]={direction: event.target.value}
-        newRecipe.directions=directions
+    const directionsChange = function (event) {
+        directions[event.target.id] = { direction: event.target.value }
+        newRecipe.directions = directions
         console.log(newRecipe)
     }
-    return(
+    return (
         <div>
             <p>Add Recipe</p>
             <form onSubmit={onSubmit}>
-                <div> {/*div to display errors */}
-                    <p>{recipeErrors.recipeName}</p>
-                    <p>{recipeErrors.description}</p>
-                    <p>{recipeErrors.imageURL}</p>
-                    <p>{recipeErrors.prepTime}</p>
-                    <p>{recipeErrors.cookTime}</p>
-                    <p>{recipeErrors.yield}</p>
-                </div>
                 <label>Recipe Name:
                     <input
                         name="recipeName"
@@ -185,8 +187,9 @@ const Recipes = (props) =>{
                         type="text"
                         onChange={changeHandler}
                     />
+                    {recipeErrors.recipeName ? <p>{recipeErrors.recipeName}</p> : <div></div>}
                 </label>
-                <br/>
+                <br />
                 <label>Description:
                     <input
                         name="description"
@@ -194,8 +197,9 @@ const Recipes = (props) =>{
                         type="text"
                         onChange={changeHandler}
                     />
+                    {recipeErrors.description ? <p>{recipeErrors.description}</p> : <div></div>}
                 </label>
-                <br/>
+                <br />
                 <label>Image URL:
                     <input
                         name="imageURL"
@@ -203,8 +207,9 @@ const Recipes = (props) =>{
                         type="text"
                         onChange={changeHandler}
                     />
+                    {recipeErrors.imageURL ? <p>{recipeErrors.imageURL}</p> : <div></div>}
                 </label>
-                <br/>
+                <br />
                 <label>Preparation Time:
                     <input
                         name="prepTime"
@@ -212,8 +217,9 @@ const Recipes = (props) =>{
                         type="text"
                         onChange={changeHandler}
                     />
+                    {recipeErrors.prepTime ? <p>{recipeErrors.prepTime}</p> : <div></div>}
                 </label>
-                <br/>
+                <br />
                 <label>Cook Time:
                     <input
                         name="cookTime"
@@ -221,8 +227,9 @@ const Recipes = (props) =>{
                         type="text"
                         onChange={changeHandler}
                     />
+                    {recipeErrors.cookTime ? <p>{recipeErrors.cookTime}</p> : <div></div>}
                 </label>
-                <br/>
+                <br />
                 <label>Yield:
                     <input
                         name="yield"
@@ -230,21 +237,22 @@ const Recipes = (props) =>{
                         type="text"
                         onChange={changeHandler}
                     />
+                    {recipeErrors.yield ? <p>{recipeErrors.yield}</p> : <div></div>}
                 </label>
-                <br/>
+                <br />
                 <label>Ingredients:
                     <button onClick={addIngredient}>+</button>
                 </label>
-                <br/>
+                <br />
                 {
-                    ingredients.map(function(val, idx){
-                        let ingredientId=`ingredient-${idx}`
-                        return(
-                            <div>
-                                <label htmlFor={ingredientId}>{`Ingredient #${idx+1}`}</label>
+                    ingredients.map(function (val, idx) {
+                        let ingredientId = `ingredient-${idx}`
+                        return (
+                            <div key={idx}>
+                                <label htmlFor={ingredientId}>{`Ingredient #${idx + 1}`}</label>
                                 <input
                                     type="text"
-                                    name={ingredientId}
+                                    name='ingredients'
                                     data-id={idx}
                                     id={idx}
                                     className="ingredientInput"
@@ -259,14 +267,14 @@ const Recipes = (props) =>{
                     <button onClick={addStep}>+</button>
                 </label>
                 {
-                    directions.map(function(val, idx){
-                        let stepId=`step-${idx}`
-                        return(
+                    directions.map(function (val, idx) {
+                        let stepId = `step-${idx}`
+                        return (
                             <div key={idx}>
-                                <label htmlFor={stepId}>{`Step #${idx+1}`}</label>
+                                <label htmlFor={stepId}>{`Step #${idx + 1}`}</label>
                                 <input
                                     type="text"
-                                    name={stepId}
+                                    name='directions'
                                     data-id={idx}
                                     id={idx}
                                     className="step"
@@ -277,8 +285,8 @@ const Recipes = (props) =>{
                         )
                     })
                 }
-                <br/>
-                {console.log(submitDisabled)}
+                <br />
+                {/* {console.log(submitDisabled)} */}
                 <button disabled={submitDisabled}>Add Recipe</button>
             </form>
         </div>
@@ -288,13 +296,16 @@ const Recipes = (props) =>{
 //data from reducer
 const mapStateToProps = state => {
     return {
-  
-      loginData: state.loginReducer,
-      recipesData: state.recipesReducer,
+
+        loginData: state.loginReducer,
+        recipesData: state.recipesReducer,
     };
-  };
-  
-  export default connect(
-  mapStateToProps,
-  {getRecipes}
-  )(Recipes)
+};
+
+export default connect(
+    mapStateToProps,
+    {
+        getRecipes,
+        addRecipe
+    }
+)(Recipes)
