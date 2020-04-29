@@ -7,17 +7,12 @@ import { getRecipes, addRecipe } from '../actions/recipesActions.js'
 
 
 const initialRecipeValues = {
-    // username: props.loginData.username,
-    // id: props.recipesData.recipes.length,
-    // user_id: props.loginData.userID,
     recipeName: '',
     description: '',
     imageURL: '',
     prepTime: '',
     cookTime: '',
     yield: '',
-    //ingredients: [],
-    //directions: []
 }
 const initialRecipeErrors = {
     recipeName: '',
@@ -86,12 +81,10 @@ const Recipes = (props) => {
         prepTime: '',
         cookTime: '',
         yield: '',
-        // ingredients: [],
-        //directions: []
     })
     const [ingredients, setIngredients] = useState([])
     const [directions, setDirections] = useState([])
-
+    const [addRecipe, setAddRecipe] = useState( false)
     const [recipeErrors, setRecipeErrors] = useState(initialRecipeErrors)
     const [submitDisabled, setSubmitDisabled] = useState(true)
 
@@ -105,25 +98,12 @@ const Recipes = (props) => {
 
     const onSubmit = function (event) {
         event.preventDefault()
-        // const incomingRecipe={
-        //     recipeName: newRecipe.recipeName,
-        //     description: newRecipe.description,
-        //     imageURL: newRecipe.imageURL,
-        //     prepTime: newRecipe.prepTime,
-        //     cookTime: newRecipe.cookTime,
-        //     yield: newRecipe.yield,
-        //     ingredients: newRecipe.ingredients,
-        //     directions: newRecipe.directions
-        // }
-        //we actually dont need to shape our object any further, you handled this when using the onChange
-        //im going to clean this up in login and register too
-        //depending on what shape we send to this end point, we might send the recipe without the directions and 
-        //ingredients, just waiting on backend to give us more instructions. we might not even
         console.log(newRecipe)
         props.addRecipe(props.loginData.userID, newRecipe)
         setNewRecipe(initialRecipeValues)
         setIngredients([])
         setDirections([])
+        setAddRecipe(false)
     }
     const changeHandler = function (event) {
         const name = event.target.name
@@ -152,8 +132,6 @@ const Recipes = (props) => {
         console.log({ newRecipe })
     }
 
-    // console.log(props.recipesData);
-
     const addIngredient = function (event) {
         event.preventDefault()
         setIngredients([
@@ -167,13 +145,8 @@ const Recipes = (props) => {
     //     console.log(ingredients)
     // }
     const ingredientsChange = function (event) {
-        // you can even do
-        // newRecipe.ingredients[event.target.id]={ingredient: event.target.value}
-        //we can even add this into our changeHandler using if statements,
-        //if event.target.name == ingredients then ingredients[event.target.id]={ingredient: event.target.value}
-        //we can expand on this further and use an || and use the same if for both ingredients and directions
+   
         ingredients[event.target.id] = { ingredient: event.target.value }
-        //newRecipe.ingredients = ingredients
         console.log(newRecipe)
     }
 
@@ -190,11 +163,11 @@ const Recipes = (props) => {
     // }
     const directionsChange = function (event) {
         directions[event.target.id] = { direction: event.target.value }
-        //newRecipe.directions = directions
         console.log(newRecipe)
     }
     return (
         <div className="recipesContainer">
+           { addRecipe == false ? <button onClick={()=>setAddRecipe(true)}>Add a recipe</button>:
             <AddRecipe
                 newRecipe={newRecipe} 
                 ingredients={ingredients}
@@ -208,6 +181,7 @@ const Recipes = (props) => {
                 submitDisabled={submitDisabled}
                 recipeErrors={recipeErrors}
             />
+    }
             {
                 dummyData.map(function(recipe){
                     return(

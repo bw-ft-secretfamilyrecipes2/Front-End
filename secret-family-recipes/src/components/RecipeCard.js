@@ -2,7 +2,6 @@ import React from "react"
 
 export default function RecipeCard(props){
     let recipe=props.recipe
-    console.log(recipe.prepTime)
     return(
         <div className="cardContainer">
             <h1>{recipe.recipeName}</h1>
