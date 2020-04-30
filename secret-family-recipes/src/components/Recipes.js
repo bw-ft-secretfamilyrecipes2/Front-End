@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import AddRecipe from './AddRecipe'
 import RecipeCard from './RecipeCard'
 import { getRecipes, addRecipeHeader, addDirections } from '../actions/recipesActions.js'
+import {axiosWithAuth} from '../utils/axiosWithAuth'
+
 
 
 const initialRecipeValues = {
@@ -30,8 +32,8 @@ const dummyData = [
         imageURL: 'https://skinnyms.com/wp-content/uploads/2016/10/Zucchini-and-Egg-Breakfast-Burrito-Recipe.jpg',
         prepTime: '10 minutes',
         cookTime: '20 minutes',
-        yields: '5 burritos',
-        ingredients: [{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce is so good man. You must have this sauce.'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'}],
+        yield: '5 burritos',
+        ingredients: [{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce is so good man. You must have this sauce. sdfsdfsd asdasd asdas asd asdasd asd'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'}],
         directions: [{direction: 'stuff everything into a box and into the microwave stuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwave'},{direction: 'EAT IT'}]
     },
     {
@@ -40,7 +42,7 @@ const dummyData = [
         imageURL: 'https://foremangrillrecipes.com/wp-content/uploads/2013/06/featured-ribeye-steak-foreman-grill.jpg',
         prepTime: '5 minutes',
         cookTime: '30 minutes',
-        yields: '1 big ol steak',
+        yield: '1 big ol steak',
         ingredients: [{ingredient: 'That aunt jemmia hot sauce'}, {ingredient: 'powdered swag'}],
         directions: [{direction: 'cook that stuff'},{direction: 'puddit in a pan and sauce that'},{direction: 'Sprinkle a bit of swagger'}]
     }
@@ -74,6 +76,7 @@ const formSchema = yup.object().shape({
 })
 
 const Recipes = (props) => {
+    const [recipes, setRecipes] =useState() //This is for recieving and displaying the backend recipes
     const [newRecipe, setNewRecipe] = useState({
         recipeName: '',
         description: '',
@@ -90,6 +93,12 @@ const Recipes = (props) => {
     const [recipeErrors, setRecipeErrors] = useState(initialRecipeErrors)
     const [submitDisabled, setSubmitDisabled] = useState(true)
 
+    const deleteRecipe = id =>{  //For you. Deleting recipes. And updating the rendered list.
+        axiosWithAuth()
+        .delete(`/api/users/:userId/recipes/:recipeId${id}`)
+        .then(res => setRecipes(res.data))
+        .catch(err => console.log(err))
+    }
     useEffect(function () {
         props.getRecipes(props.loginData.user_id)
         formSchema.isValid(newRecipe)
@@ -100,7 +109,6 @@ const Recipes = (props) => {
 
     const onSubmit = async function (event) {
         event.preventDefault()
-        console.log(newRecipe)
         await props.addRecipeHeader(props.loginData.user_id, newRecipe)
         directions.forEach(element =>{
             props.addDirections(element)
