@@ -91,7 +91,16 @@ export default function AddRecipe(props){
                                 <label htmlFor={ingredientId}>{`Ingredient #${idx + 1}`}</label>
                                 <input
                                     type="text"
-                                    name='ingredients'
+                                    name='ingredientName'
+                                    data-id={idx}
+                                    id={idx}
+                                    className="ingredientInput"
+                                    onChange={ingredientsChange}
+                                />
+                                <label>Amount</label>
+                                <input
+                                    type="text"
+                                    name='amount'
                                     data-id={idx}
                                     id={idx}
                                     className="ingredientInput"

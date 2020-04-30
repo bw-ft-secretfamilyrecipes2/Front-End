@@ -13,9 +13,10 @@ export default function RecipeCard(props){
     const handleChange = event => {
         setEditRecipe({ ...editRecipe, [event.target.name]: event.target.value })
         console.log({editRecipe})
+        console.log({recipe})
     };
-    const ingredientsChange = function (event) {
-        editRecipe.ingredients[event.target.id] = { ingredient: event.target.value }
+    const changeIngredient = function (event) {
+        editRecipe.ingredients[event.target.id] = { ...editRecipe.ingredients[event.target.id], [event.target.name]: event.target.value }
     }
     const directionsChange = function (event) {
         editRecipe.directions[event.target.id] = { direction: event.target.value }
@@ -50,7 +51,7 @@ export default function RecipeCard(props){
                     {
                         recipe.ingredients.map(function(ingredient){
                             return(
-                                    <li>{ingredient.ingredient}</li>
+                                    <li>{ingredient.ingredientName} - {ingredient.amount}</li>
                             )
                     
                         })
@@ -79,7 +80,7 @@ export default function RecipeCard(props){
             <div><input type='text' name='recipeName'placeholder={recipe.recipeName} onChange={handleChange} /></div>
             
             <img src={recipe.imageURL} />
-            <div><input type='text' name='imageUrl' placeholder={recipe.imageURL} onChange={handleChange} /></div>
+            <div><input type='text' name='imageURL' placeholder={recipe.imageURL} onChange={handleChange} /></div>
             <div className="infoContainer">
                 <p>Preparation Time: <input type='text' name='prepTime' placeholder={recipe.prepTime} onChange={handleChange}/></p>
                 <p>Cook Time: <input type='text' name='cookTime' placeholder={recipe.cookTime} onChange={handleChange}/></p>
@@ -92,7 +93,10 @@ export default function RecipeCard(props){
                     {
                         recipe.ingredients.map(function(ingredient, id){
                             return(
-                                    <li><input type='text' name='ingredient' id={id} placeholder={ingredient.ingredient} onChange={ingredientsChange}/></li>
+                                    <li><input type='text' name='ingredientName' id={id} placeholder={ingredient.ingredientName} onChange={changeIngredient}/>
+                                      - 
+                                     <input type='text' name='amount' id={id} placeholder={ingredient.amount} onChange={changeIngredient}/>
+                                    </li>
                             )
                     
                         })
@@ -104,7 +108,7 @@ export default function RecipeCard(props){
                     {
                         recipe.directions.map(function(direction,id){
                             return(
-                                    <li><input type='text' name='direction' id={id} placeholder={direction.direction} onChange={directionsChange}/></li>
+                                    <li><textarea type='text' name='direction' id={id} placeholder={direction.direction} onChange={directionsChange}/></li>
                             )
                     
                         })
