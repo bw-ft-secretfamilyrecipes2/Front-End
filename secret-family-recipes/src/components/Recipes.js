@@ -14,6 +14,8 @@ const initialRecipeValues = {
     prepTime: '',
     cookTime: '',
     yield: '',
+    ingredients: [],
+    directions: []
 }
 const initialRecipeErrors = {
     recipeName: '',
@@ -32,7 +34,7 @@ const dummyData = [
         prepTime: '10 minutes',
         cookTime: '20 minutes',
         yield: '5 burritos',
-        ingredients: [{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce is so good man. You must have this sauce. sdfsdfsd asdasd asdas asd asdasd asd'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'}],
+        ingredients: [{ingredientName: 'Egg', amount: '200'},{ingredientName: 'Egg', amount: '200'},{ingredientName: 'Egg', amount: '200'},{ingredientName: 'Egg', amount: '200'}],
         directions: [{direction: 'stuff everything into a box and into the microwave stuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwave'},{direction: 'EAT IT'}]
     },
     {
@@ -42,7 +44,7 @@ const dummyData = [
         prepTime: '5 minutes',
         cookTime: '30 minutes',
         yield: '1 big ol steak',
-        ingredients: [{ingredient: 'That aunt jemmia hot sauce'}, {ingredient: 'powdered swag'}],
+        ingredients: [{ingredientName: 'Egg', amount: '200'},{ingredientName: 'Egg', amount: '200'},{ingredientName: 'Egg', amount: '200'},{ingredientName: 'Egg', amount: '200'}],
         directions: [{direction: 'cook that stuff'},{direction: 'puddit in a pan and sauce that'},{direction: 'Sprinkle a bit of swagger'}]
     }
 ]
@@ -83,11 +85,13 @@ const Recipes = (props) => {
         prepTime: '',
         cookTime: '',
         yield: '',
+        ingredients: [],
+        directions: []
     })
     const [ingredients, setIngredients] = useState([])
     const [directions, setDirections] = useState([])
 
-    const [addRecipe, setAddRecipe] = useState( false)
+    const [addRecipe, setAddRecipe] = useState(false)
     
     const [recipeErrors, setRecipeErrors] = useState(initialRecipeErrors)
     const [submitDisabled, setSubmitDisabled] = useState(true)
@@ -145,7 +149,14 @@ const Recipes = (props) => {
         event.preventDefault()
         setIngredients([
             ...ingredients,
-            { ingredient: "" }
+            { ingredientName: "", amount: ""}
+        ])
+    }
+    const addStep = function (event) {
+        event.preventDefault()
+        setDirections([
+            ...directions,
+            { direction: "" }
         ])
     }
     // const removeIngredient = function(event){
@@ -153,24 +164,24 @@ const Recipes = (props) => {
     //     arrayRemove(ingredients, 1)
     //     console.log(ingredients)
     // }
-    const ingredientsChange = function (event) {
+    // const ingredientsChange = function (event) {
    
-        ingredients[event.target.id] = { ingredient: event.target.value }
-    }
+    //     ingredients[event.target.id] = { ingredient: event.target.value }
+    // }
 
-    const addStep = function (event) {
-        event.preventDefault()
-        setDirections([
-            ...directions,
-            { step: "" }
-        ])
+    const changeIngredient = function (event) {
+        ingredients[event.target.id] = { ...ingredients[event.target.id], [event.target.name]: event.target.value }
+        newRecipe.ingredients=ingredients
+        console.log(newRecipe)
     }
+    
     // const removeStep =function(event){
     //     event.preventDefault()
 
     // }
     const directionsChange = function (event) {
         directions[event.target.id] = { direction: event.target.value }
+        newRecipe.directions=directions
     }
     return (
         <div className="recipesContainer">
@@ -182,7 +193,7 @@ const Recipes = (props) => {
                 addIngredient={addIngredient}
                 addStep={addStep}
                 changeHandler={changeHandler} 
-                ingredientsChange={ingredientsChange}
+                ingredientsChange={changeIngredient}
                 directionsChange={directionsChange}
                 onSubmit={onSubmit}
                 submitDisabled={submitDisabled}
