@@ -1,0 +1,57 @@
+nav{
+    max-width: 100%;
+    font-size:5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+     @media @tablet {
+        font-size: 4rem;
+    }
+
+    @media @mobile {
+        font-size: 3rem;
+    }
+    
+
+   
+    section{
+        max-width: 50%;
+        margin: 2%;
+      
+        a{
+            text-decoration: none;
+            
+        }
+           
+    }     
+}
+.navContainer{
+    background-color: @bg;
+    border-bottom: solid black 1px;
+    padding-bottom: 5%;
+}
+.logoImg{
+    width: 9%;
+    padding-top: 3%;
+}
+.logo{
+    font-size:8rem;
+    font-family: @h1font;
+    color: black;
+
+    @media @tablet {
+        font-size: 8rem;
+    }
+    
+    @media @mobile {
+        font-size: 6rem;
+    }
+}
+hr{
+    width: 100%;
+    margin-bottom: 0;
+}
+.btn{
+            .button(@btnbg, 10%, 10%, @h1font, @scolor, space-evenly, center);
+        }

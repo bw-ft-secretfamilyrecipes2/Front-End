@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 
 const Nav = props =>{
     return(
-        <header>
-            <h1>Secret Family Recipes</h1>
+        <header className="navContainer">
+            <img className="logoImg"src={require("./pics/hot-noodles.png")} />
+            <h1 className="logo">Secret Family Recipes</h1>
+            
             <nav className="nav">
                 <Link to='/'>
                 <p href="#">Home</p>
