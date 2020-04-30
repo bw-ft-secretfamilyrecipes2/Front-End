@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { connect } from 'react-redux';
 import AddRecipe from './AddRecipe'
 import RecipeCard from './RecipeCard'
-import { getRecipes, addRecipeHeader } from '../actions/recipesActions.js'
+import { getRecipes, addRecipeHeader, addDirections } from '../actions/recipesActions.js'
 
 
 const initialRecipeValues = {
@@ -91,23 +91,26 @@ const Recipes = (props) => {
     const [submitDisabled, setSubmitDisabled] = useState(true)
 
     useEffect(function () {
-        props.getRecipes(props.loginData.userID)
+        props.getRecipes(props.loginData.user_id)
         formSchema.isValid(newRecipe)
             .then(valid => { // either true or false
                 setSubmitDisabled(!valid)
             })
     }, [newRecipe])
 
-    const onSubmit = function (event) {
+    const onSubmit = async function (event) {
         event.preventDefault()
         console.log(newRecipe)
-        props.addRecipeHeader(props.loginData.userID, newRecipe)
-        props.addIngredients()
+        await props.addRecipeHeader(props.loginData.user_id, newRecipe)
+        directions.forEach(element =>{
+            props.addDirections(element)
+        })
         setNewRecipe(initialRecipeValues)
         setIngredients([])
         setDirections([])
         setAddRecipe(false)
     }
+    console.log(props.loginData)
     const changeHandler = function (event) {
         const name = event.target.name
         const value = event.target.value
@@ -163,7 +166,10 @@ const Recipes = (props) => {
 
     // }
     const directionsChange = function (event) {
-        directions[event.target.id] = { stepInstruction: event.target.value }
+        directions[event.target.id] = { 
+            stepNum: directions.length,
+            stepInstruction: event.target.value 
+        }
         console.log(directions)
     }
     return (
@@ -202,7 +208,7 @@ const Recipes = (props) => {
 const mapStateToProps = state => {
     return {
 
-        loginData: state.loginReducer,
+        loginData: state.recipesAndLoginReducer.recipeShape,
         recipesData: state.recipesReducer,
     };
 };
@@ -212,5 +218,6 @@ export default connect(
     {
         getRecipes,
         addRecipeHeader,
+        addDirections
     }
 )(Recipes)
