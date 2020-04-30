@@ -109,16 +109,17 @@ const Recipes = (props) => {
 
     const onSubmit = async function (event) {
         event.preventDefault()
-        await props.addRecipeHeader(props.loginData.user_id, newRecipe)
+        props.addRecipeHeader(props.loginData.user_id, newRecipe) 
         directions.forEach(element =>{
-            props.addDirections(element)
+            props.addDirections(element) 
         })
         setNewRecipe(initialRecipeValues)
         setIngredients([])
         setDirections([])
         setAddRecipe(false)
     }
-    console.log(props.loginData)
+  
+    console.log(props.loginData,"after")
     const changeHandler = function (event) {
         const name = event.target.name
         const value = event.target.value
@@ -178,7 +179,6 @@ const Recipes = (props) => {
             stepNum: directions.length,
             stepInstruction: event.target.value 
         }
-        console.log(directions)
     }
     return (
         <div className="recipesContainer">
