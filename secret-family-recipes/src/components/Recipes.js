@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { connect } from 'react-redux';
 import AddRecipe from './AddRecipe'
 import RecipeCard from './RecipeCard'
-import { getRecipes, addRecipe } from '../actions/recipesActions.js'
+import { getRecipes, addRecipeHeader } from '../actions/recipesActions.js'
 
 
 const initialRecipeValues = {
@@ -101,7 +101,8 @@ const Recipes = (props) => {
     const onSubmit = function (event) {
         event.preventDefault()
         console.log(newRecipe)
-        props.addRecipe(props.loginData.userID, newRecipe)
+        props.addRecipeHeader(props.loginData.userID, newRecipe)
+        props.addIngredients()
         setNewRecipe(initialRecipeValues)
         setIngredients([])
         setDirections([])
@@ -162,7 +163,8 @@ const Recipes = (props) => {
 
     // }
     const directionsChange = function (event) {
-        directions[event.target.id] = { direction: event.target.value }
+        directions[event.target.id] = { stepInstruction: event.target.value }
+        console.log(directions)
     }
     return (
         <div className="recipesContainer">
@@ -185,7 +187,7 @@ const Recipes = (props) => {
             {
                 dummyData.map(function(recipe){
                     return(
-                        <RecipeCard
+                        <RecipeCard 
                             recipe={recipe}
                         />
                     )
@@ -209,6 +211,6 @@ export default connect(
     mapStateToProps,
     {
         getRecipes,
-        addRecipe
+        addRecipeHeader,
     }
 )(Recipes)

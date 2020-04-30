@@ -5,7 +5,16 @@ import {
   } from '../actions/recipesActions.js'
   
   export const initialState = {
-    recipes:[],
+    recipes:[{
+      recipeName: '',
+    description: '',
+    imageURL: '',
+    prepTime: '',
+    cookTime: '',
+    yields: '',
+    ingredients:[],
+    directions:[]
+    }],
     isGetting:false,
     error: ''
     };
