@@ -14,8 +14,6 @@ const initialRecipeValues = {
     prepTime: '',
     cookTime: '',
     yield: '',
-    ingredients: [],
-    directions: []
 }
 const initialRecipeErrors = {
     recipeName: '',
@@ -85,8 +83,6 @@ const Recipes = (props) => {
         prepTime: '',
         cookTime: '',
         yield: '',
-        ingredients: [],
-        directions: []
     })
     const [ingredients, setIngredients] = useState([])
     const [directions, setDirections] = useState([])
@@ -180,8 +176,10 @@ const Recipes = (props) => {
 
     // }
     const directionsChange = function (event) {
-        directions[event.target.id] = { direction: event.target.value }
-        newRecipe.directions=directions
+          directions[event.target.id] = { 
+            stepNum: directions.length,
+            stepInstruction: event.target.value 
+          }
     }
     return (
         <div className="recipesContainer">
