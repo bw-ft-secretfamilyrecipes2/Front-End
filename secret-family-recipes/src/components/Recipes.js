@@ -175,6 +175,7 @@ const Recipes = (props) => {
     //     event.preventDefault()
 
     // }
+    
     const directionsChange = function (event) {
           directions[event.target.id] = { 
             stepNum: directions.length,
