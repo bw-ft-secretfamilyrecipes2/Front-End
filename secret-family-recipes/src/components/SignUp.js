@@ -10,38 +10,41 @@ function SignUp(props) {
     } = props
 
     return(
-        <form>
+        <form className="signUpContainer">
+            <h1>Sign Up</h1>
             <div> {/*div to display errors */}
                 <p>{errors.username}</p>
                 <p>{errors.password}</p>
                 <p>{errors.confirmPassword}</p>
             </div>
-            <label>Username:
-                <input
-                    value={values.username}
-                    onChange={changeHandler}
-                    name='username'
-                    type='text'
-                />
-            </label>
-            <br/>
-            <label>Password:
-                <input
-                    value={values.password}
-                    onChange={changeHandler}
-                    name='password'
-                    type='password'
-                />
-            </label>
-            <br/>
-            <label>Confirm Password:
-                <input
-                    value={values.confirmPassword}
-                    onChange={changeHandler}
-                    name='confirmPassword'
-                    type='password'
-                />
-            </label>
+            <div className="signUpInputs"> 
+                <br /><label>
+                    <input
+                        value={values.username}
+                        onChange={changeHandler}
+                        name='username'
+                        type='text'
+                        placeholder='Create your Username'
+                    />
+                    </label>
+                <br/>
+                    <input
+                        value={values.password}
+                        onChange={changeHandler}
+                        name='password'
+                        type='password'
+                        placeholder='Create your Password'
+                    />
+                <br/>
+                <label>Confirm Password:
+                    <input
+                        value={values.confirmPassword}
+                        onChange={changeHandler}
+                        name='confirmPassword'
+                        type='password'
+                    />
+                </label>
+            </div>
             <br/>
             <button onClick={onSubmit} disabled={disabled}>Sign Up</button>
 

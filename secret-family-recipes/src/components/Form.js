@@ -89,8 +89,10 @@ const Form =props =>{
     
     return(
         <div>
-            <h1>Sign Up</h1>
-            <SignUp 
+            <div>
+                <h1>Save your Secret Recipes Online</h1>
+            </div>
+            <SignUp
                 values={formValues}
                 changeHandler={changeHandler}
                 onSubmit={onSubmit}

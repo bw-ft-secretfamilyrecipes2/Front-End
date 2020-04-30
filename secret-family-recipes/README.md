@@ -1,3 +1,5 @@
+lessc src/less/styles.less src/styles.css <----Less Compile Commands
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

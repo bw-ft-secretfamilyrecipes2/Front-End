@@ -2,7 +2,9 @@ import React from 'react';
 import { Route } from "react-router-dom";
 
 import './App.css';
+import './styles.css'
 import Nav from "./components/Nav.js"
+import About from "./components/About"
 import Form from "./components/Form.js"
 import Login from "./components/Login.js"
 import PrivateRoute from "./components/PrivateRoute.js"
@@ -16,13 +18,16 @@ function App() {
   // },[])
   return (
     <div className="App"> 
-      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Akronim&family=Dawning+of+a+New+Day&family=Hanalei&display=swap" rel="stylesheet"></link>
       <Nav/>
       <Route exact path='/'>
-      <Form />
+        <Form />
+      </Route>
+      <Route path='/about'>
+        <About />
       </Route>
       <Route path='/login'>
-      <Login />
+        <Login />
       </Route>
       <PrivateRoute path='/recipes' component={Recipes} />
   
