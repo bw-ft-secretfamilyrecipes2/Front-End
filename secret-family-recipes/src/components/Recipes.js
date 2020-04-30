@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import AddRecipe from './AddRecipe'
 import RecipeCard from './RecipeCard'
 import { getRecipes, addRecipe } from '../actions/recipesActions.js'
+import {axiosWithAuth} from '../utils/axiosWithAuth'
 
 
 const initialRecipeValues = {
@@ -74,6 +75,7 @@ const formSchema = yup.object().shape({
 })
 
 const Recipes = (props) => {
+    const [recipes, setRecipes] =useState() //This is for recieving and displaying the backend recipes
     const [newRecipe, setNewRecipe] = useState({
         recipeName: '',
         description: '',
@@ -90,6 +92,12 @@ const Recipes = (props) => {
     const [recipeErrors, setRecipeErrors] = useState(initialRecipeErrors)
     const [submitDisabled, setSubmitDisabled] = useState(true)
 
+    const deleteRecipe = id =>{  //For you. Deleting recipes. And updating the rendered list.
+        axiosWithAuth()
+        .delete(`/api/users/:userId/recipes/:recipeId${id}`)
+        .then(res => setRecipes(res.data))
+        .catch(err => console.log(err))
+    }
     useEffect(function () {
         props.getRecipes(props.loginData.userID)
         formSchema.isValid(newRecipe)
@@ -166,7 +174,7 @@ const Recipes = (props) => {
     }
     return (
         <div className="recipesContainer">
-           { addRecipe == false ? <button onClick={()=>setAddRecipe(true)}>Add a recipe</button>:
+           { addRecipe === false ? <button onClick={()=>setAddRecipe(true)}>Add a recipe</button>:
             <AddRecipe
                 newRecipe={newRecipe} 
                 ingredients={ingredients}
