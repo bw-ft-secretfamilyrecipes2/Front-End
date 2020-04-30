@@ -177,10 +177,10 @@ const Recipes = (props) => {
     // }
     
     const directionsChange = function (event) {
-          directions[event.target.id] = { 
+        directions[event.target.id] = { 
             stepNum: directions.length,
             stepInstruction: event.target.value 
-          }
+        }
     }
     return (
         <div className="recipesContainer">
