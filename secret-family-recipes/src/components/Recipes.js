@@ -3,8 +3,9 @@ import * as yup from 'yup'
 import { connect } from 'react-redux';
 import AddRecipe from './AddRecipe'
 import RecipeCard from './RecipeCard'
-import { getRecipes, addRecipe } from '../actions/recipesActions.js'
+import { getRecipes, addRecipeHeader, addDirections } from '../actions/recipesActions.js'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
+
 
 
 const initialRecipeValues = {
@@ -13,7 +14,7 @@ const initialRecipeValues = {
     imageURL: '',
     prepTime: '',
     cookTime: '',
-    yield: '',
+    yields: '',
 }
 const initialRecipeErrors = {
     recipeName: '',
@@ -21,7 +22,7 @@ const initialRecipeErrors = {
     imageURL: '',
     prepTime: '',
     cookTime: '',
-    yield: '',
+    yields: '',
 }
 
 const dummyData = [
@@ -65,7 +66,7 @@ const formSchema = yup.object().shape({
     cookTime: yup
         .string()
         .required('Cook Time cannot be blank'),
-    yield: yup
+    yields: yup
         .string()
         .required('Please enter a number for the amount of servings this recipe provides.'),
     ingredients: yup
@@ -82,7 +83,7 @@ const Recipes = (props) => {
         imageURL: '',
         prepTime: '',
         cookTime: '',
-        yield: '',
+        yields: '',
     })
     const [ingredients, setIngredients] = useState([])
     const [directions, setDirections] = useState([])
@@ -99,22 +100,25 @@ const Recipes = (props) => {
         .catch(err => console.log(err))
     }
     useEffect(function () {
-        props.getRecipes(props.loginData.userID)
+        props.getRecipes(props.loginData.user_id)
         formSchema.isValid(newRecipe)
             .then(valid => { // either true or false
                 setSubmitDisabled(!valid)
             })
     }, [newRecipe])
 
-    const onSubmit = function (event) {
+    const onSubmit = async function (event) {
         event.preventDefault()
-        console.log(newRecipe)
-        props.addRecipe(props.loginData.userID, newRecipe)
+        await props.addRecipeHeader(props.loginData.user_id, newRecipe)
+        directions.forEach(element =>{
+            props.addDirections(element)
+        })
         setNewRecipe(initialRecipeValues)
         setIngredients([])
         setDirections([])
         setAddRecipe(false)
     }
+    console.log(props.loginData)
     const changeHandler = function (event) {
         const name = event.target.name
         const value = event.target.value
@@ -170,11 +174,15 @@ const Recipes = (props) => {
 
     // }
     const directionsChange = function (event) {
-        directions[event.target.id] = { direction: event.target.value }
+        directions[event.target.id] = { 
+            stepNum: directions.length,
+            stepInstruction: event.target.value 
+        }
+        console.log(directions)
     }
     return (
         <div className="recipesContainer">
-           { addRecipe === false ? <button onClick={()=>setAddRecipe(true)}>Add a recipe</button>:
+           { addRecipe == false ? <button onClick={()=>setAddRecipe(true)}>Add a recipe</button>:
             <AddRecipe
                 newRecipe={newRecipe} 
                 ingredients={ingredients}
@@ -193,7 +201,7 @@ const Recipes = (props) => {
             {
                 dummyData.map(function(recipe){
                     return(
-                        <RecipeCard
+                        <RecipeCard 
                             recipe={recipe}
                         />
                     )
@@ -208,7 +216,7 @@ const Recipes = (props) => {
 const mapStateToProps = state => {
     return {
 
-        loginData: state.loginReducer,
+        loginData: state.recipesAndLoginReducer.recipeShape,
         recipesData: state.recipesReducer,
     };
 };
@@ -217,6 +225,7 @@ export default connect(
     mapStateToProps,
     {
         getRecipes,
-        addRecipe
+        addRecipeHeader,
+        addDirections
     }
 )(Recipes)

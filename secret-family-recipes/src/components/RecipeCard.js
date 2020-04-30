@@ -41,7 +41,7 @@ export default function RecipeCard(props){
             <div className="infoContainer">
                 <p>Preparation Time: {recipe.prepTime}</p>
                 <p>Cook Time: {recipe.cookTime}</p>
-                <p>Yield: {recipe.yield}</p>
+                <p>Yields: {recipe.yields}</p>
             </div>
             <h4>{recipe.description}</h4>
             

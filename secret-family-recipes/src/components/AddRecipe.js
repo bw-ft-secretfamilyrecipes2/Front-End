@@ -69,14 +69,14 @@ export default function AddRecipe(props){
                     {recipeErrors.cookTime ? <p>{recipeErrors.cookTime}</p> : <div></div>}
                 </label>
                 <br />
-                <label>Yield:
+                <label>Yields:
                     <input
-                        name="yield"
-                        value={newRecipe.yield}
+                        name="yields"
+                        value={newRecipe.yields}
                         type="text"
                         onChange={changeHandler}
                     />
-                    {recipeErrors.yield ? <p>{recipeErrors.yield}</p> : <div></div>}
+                    {recipeErrors.yields ? <p>{recipeErrors.yields}</p> : <div></div>}
                 </label>
                 <br />
                 <label>Ingredients:
