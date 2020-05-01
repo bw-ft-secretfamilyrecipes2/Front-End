@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 
 import './App.css';
 import './styles.css'
+import Home from './components/Home.js'
 import Nav from "./components/Nav.js"
 import About from "./components/About"
 import Form from "./components/Form.js"
@@ -21,13 +22,16 @@ function App() {
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Akronim&family=Dawning+of+a+New+Day&family=Hanalei&display=swap" rel="stylesheet"></link>
       <Nav/>
       <Route exact path='/'>
-        <Form />
+        <Home/>
       </Route>
       <Route path='/about'>
         <About />
       </Route>
       <Route path='/login'>
         <Login />
+      </Route>
+      <Route path='/register'>
+        <Form/>
       </Route>
       <PrivateRoute path='/recipes' component={Recipes} />
   
