@@ -57,7 +57,7 @@ export const recipesAndLoginReducer = (state = initialState, action) => {
       return { ...state, isGetting: true }
     case GET_RECIPES_SUCCESS:
       console.log('GET_RECIPES_SUCCESS')
-      return { ...state, recipes: [...state.recipes, action.payload], isGetting: false, error: "" }
+      return { ...state, recipes: action.payload, isGetting: false, error: "" }
     case GET_RECIPES_FAILURE:
       console.log('GET_RECIPES_ERROR', action.payload)
       return { ...state, isGetting: false, error: action.payload }
@@ -72,14 +72,8 @@ export const recipesAndLoginReducer = (state = initialState, action) => {
         ...state, recipeShape: {
           ...state.recipeShape,
           ...action.payload
-          // id:action.payload.id,
-          // recipeName:action.payload.recipeName,
-          // description:action.payload.description,
-          // imageURL:action.payload.imageURL,
-          // prepTime:action.payload.prepTime,
-          // cookTime:action.payload.cookTime,
-          // yields:action.payload.yields
         },
+        recipes:[...state.recipes, action.payload],
         isPosting: false
       }
     case POST_RECIPEHEADER_FAILURE:

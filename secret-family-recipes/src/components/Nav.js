@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 const Nav = props =>{
     return(
         <header className="navContainer">
-            <img className="logoImg"src={require("../common/hot-noodles.png")} />
-            <h1 className="logo">Secret Family Recipes</h1>
+            <h1 className="logo">{props.title}</h1>
             
             <nav className="nav">
                 <section>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup'
 import { connect } from 'react-redux';
+import Nav from './Nav.js';
 import AddRecipe from './AddRecipe'
 import RecipeCard from './RecipeCard'
-import { getRecipes, addRecipeHeader, addDirections } from '../actions/recipesActions.js'
+import { getRecipes, addRecipeHeader, addDirections, deleteRecipe, editRecipe } from '../actions/recipesActions.js'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 
 
@@ -184,7 +185,10 @@ const Recipes = (props) => {
             stepInstruction: event.target.value 
         }
     }
+    console.log(props.recipesData.recipes)
     return (
+        <>
+       <Nav title='Secret Family Recipes'/>
         <div className="recipesContainer">
            { addRecipe == false ? <button onClick={()=>setAddRecipe(true)}>Add a recipe</button>:
             <AddRecipe
@@ -203,16 +207,20 @@ const Recipes = (props) => {
             />
     }
             {
-                dummyData.map(function(recipe){
+                props.recipesData.recipes.map(function(recipe){
                     return(
                         <RecipeCard 
                             recipe={recipe}
+                            deleteRecipe={props.deleteRecipe}
+                            userID={props.loginData.user_id}
+                            editRecipe={props.editRecipe}
                         />
                     )
                 })
             }
             
         </div>
+        </>
     )
 }
 
@@ -221,7 +229,7 @@ const mapStateToProps = state => {
     return {
 
         loginData: state.recipesAndLoginReducer.recipeShape,
-        recipesData: state.recipesReducer,
+        recipesData: state.recipesAndLoginReducer,
     };
 };
 
@@ -230,6 +238,8 @@ export default connect(
     {
         getRecipes,
         addRecipeHeader,
-        addDirections
+        addDirections,
+        deleteRecipe,
+        editRecipe
     }
 )(Recipes)

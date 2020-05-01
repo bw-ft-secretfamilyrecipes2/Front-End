@@ -11,7 +11,7 @@ function SignUp(props) {
 
     return(
         <form className="signUpContainer">
-            <h1>Sign Up</h1>
+            <h2>Save your Secret Recipes Online</h2>
             <div className="signUpInputs"> 
                 <br /><label htmlFor='username'>
                     Username:

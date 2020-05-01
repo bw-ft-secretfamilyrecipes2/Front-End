@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from 'react-redux'; 
 import { useHistory } from 'react-router'; 
 
-
+import Nav from "./Nav.js"
 import {postLogin} from '../actions/loginActions.js' 
 
 const initialFormValues={
@@ -35,7 +35,7 @@ const Login =(props) => {
   
   return (
     <div style={{width: '100%'}}>
-      <h1>Login</h1>
+      <Nav title='Login'/>
       <form onSubmit={onSubmit}>
           <label>Username
             <input
