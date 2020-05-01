@@ -97,6 +97,21 @@ body {
   color: lightseagreen;
   background: #DFCE9D;
 }
+h1 {
+  font-size: 10rem;
+  font-family: 'Akronim', cursive;
+  color: #E25822;
+}
+@media (max-width:800px) {
+  h1 {
+    font-size: 8rem;
+  }
+}
+@media (max-width:500px) {
+  h1 {
+    font-size: 6rem;
+  }
+}
 h2 {
   font-size: 7rem;
   font-family: 'Hanalei', cursive;
@@ -152,34 +167,6 @@ nav section {
 }
 nav section a {
   text-decoration: none;
-}
-.navContainer {
-  background-color: #DFCE9D;
-  border-bottom: solid black 1px;
-  padding-bottom: 5%;
-}
-.logoImg {
-  width: 9%;
-  padding-top: 3%;
-}
-.logo {
-  font-size: 8rem;
-  font-family: 'Akronim', cursive;
-  color: black;
-}
-@media (max-width:800px) {
-  .logo {
-    font-size: 8rem;
-  }
-}
-@media (max-width:500px) {
-  .logo {
-    font-size: 6rem;
-  }
-}
-hr {
-  width: 100%;
-  margin-bottom: 0;
 }
 .btn {
   background-color: #1799B5;
