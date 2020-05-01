@@ -277,11 +277,12 @@ a img {
   align-items: center;
   border-radius: 10%;
 }
-.signUpContainer {
-  background-color: white;
-}
 .signUpContainer label {
   width: 100%;
+}
+.signUpContainer input {
+  height: 3vh;
+  width: 10%;
 }
 .signUpInputs {
   display: flex;
