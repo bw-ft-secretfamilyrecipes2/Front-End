@@ -18,7 +18,8 @@ function SignUp(props) {
                 <p>{errors.confirmPassword}</p>
             </div>
             <div className="signUpInputs"> 
-                <br /><label>
+                <br /><label htmlFor='username'>
+                    Username:
                     <input
                         value={values.username}
                         onChange={changeHandler}
@@ -28,6 +29,8 @@ function SignUp(props) {
                     />
                     </label>
                 <br/>
+                <label htmlFor='password'>
+                Password:
                     <input
                         value={values.password}
                         onChange={changeHandler}
@@ -35,10 +38,12 @@ function SignUp(props) {
                         type='password'
                         placeholder='Create your Password'
                     />
+                    </label>
                 <br/>
-                <label>Confirm Password:
+                <label htmlFor='confirmPassword'>Confirm Password:
                     <input
                         value={values.confirmPassword}
+                        placeholder='Confirm password'
                         onChange={changeHandler}
                         name='confirmPassword'
                         type='password'

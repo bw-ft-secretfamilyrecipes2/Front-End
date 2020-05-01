@@ -21,13 +21,8 @@ const Login =(props) => {
 
    function onSubmit(event) {
     event.preventDefault();
-    const inputtedUser={
-        username: formValues.username,
-        password: formValues.password,
-    }
-    console.log("LOGIN INFO CAPTURED")
-    console.log(inputtedUser)
-    props.postLogin(inputtedUser, match)
+    console.log(formValues)
+    props.postLogin(formValues, match)
   }
   const changeHandler = function(event){
     const name = event.target.name
