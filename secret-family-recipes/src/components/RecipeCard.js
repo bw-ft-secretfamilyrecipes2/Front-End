@@ -51,7 +51,7 @@ export default function RecipeCard(props){
                     {
                         recipe.ingredients.map(function(ingredient){
                             return(
-                                    <li>{ingredient.ingredientName} - {ingredient.amount}</li>
+                                    <li>{ingredient.amount} - {ingredient.ingredientName}</li>
                             )
                     
                         })

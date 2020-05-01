@@ -35,7 +35,7 @@ const dummyData = [
         prepTime: '10 minutes',
         cookTime: '20 minutes',
         yield: '5 burritos',
-        ingredients: [{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce is so good man. You must have this sauce. sdfsdfsd asdasd asdas asd asdasd asd'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'},{ingredient: 'tha sauce'},{ingredient: 'The Deliciouso Eggs'},{ingredient: 'The burrito thing watcha call it'}],
+        ingredients: [{ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}],
         directions: [{direction: 'stuff everything into a box and into the microwave stuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwavestuff everything into a box and into the microwave'},{direction: 'EAT IT'}]
     },
     {
@@ -45,7 +45,7 @@ const dummyData = [
         prepTime: '5 minutes',
         cookTime: '30 minutes',
         yield: '1 big ol steak',
-        ingredients: [{ingredient: 'That aunt jemmia hot sauce'}, {ingredient: 'powdered swag'}],
+        ingredients: [{ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}, {ingredientName:'Flour', amount:'3 cups'}],
         directions: [{direction: 'cook that stuff'},{direction: 'puddit in a pan and sauce that'},{direction: 'Sprinkle a bit of swagger'}]
     }
 ]
