@@ -144,6 +144,14 @@ div {
   width: 100%;
   margin: 0 auto;
 }
+label p {
+  color: red;
+  font-size: 17px;
+  margin: 0 0;
+}
+label div {
+  margin: 27px 0;
+}
 nav {
   max-width: 100%;
   font-size: 5rem;
@@ -264,18 +272,6 @@ a img {
   align-items: center;
   border-radius: 10%;
 }
-.signUpContainer label {
-  width: 100%;
-}
-.signUpContainer input {
-  height: 3vh;
-  width: 10%;
-}
-.signUpInputs {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
 /* RecipeCard */
 .recipesContainer {
   display: flex;
@@ -326,4 +322,53 @@ ul li {
   text-align: start;
   overflow-wrap: break-word;
   margin-right: 0.1%;
+}
+.signUpContainer label {
+  width: 100%;
+}
+.signUpContainer input {
+  height: 3vh;
+  width: 10%;
+}
+@media (max-width:500px) {
+  .signUpContainer input {
+    width: 80%;
+  }
+}
+@media (max-width:500px) {
+  .signUpContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .signUpContainer h2 {
+    display: none;
+  }
+}
+.signUpInputs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.outerContainer {
+  display: flex;
+  justify-content: center;
+}
+.outerContainer section {
+  font-size: 3.5rem;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.outerContainer section p {
+  text-align: left;
+  width: 95%;
+}
+@media (max-width:500px) {
+  button {
+    width: 20%;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
 }

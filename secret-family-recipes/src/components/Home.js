@@ -1,7 +1,12 @@
 import React from 'react';
+import Nav from "./Nav.js"
+
 
 const Home = props =>{
     return(
+        <>
+        <Nav title='Secret Family Recipes'/>
+        <div className="outerContainer">
         <section>
             <p>Welcome to Secret Family Recipes!!</p>
             <img src={require("../common/food.jpg")} alt="table full of different foods"/>
@@ -9,6 +14,8 @@ const Home = props =>{
             <p>Come make an account and have no more fear of losing any precious dinner ideas!</p>
             <img src={require("../common/food2.jpg")} alt="different foods laid out in the shape of a heart"/>
             </section>
+            </div>
+            </>
     )
 }
 

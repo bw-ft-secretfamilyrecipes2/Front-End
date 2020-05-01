@@ -11,12 +11,7 @@ function SignUp(props) {
 
     return(
         <form className="signUpContainer">
-            <h1>Sign Up</h1>
-            <div> {/*div to display errors */}
-                <p>{errors.username}</p>
-                <p>{errors.password}</p>
-                <p>{errors.confirmPassword}</p>
-            </div>
+            <h2>Save your Secret Recipes Online</h2>
             <div className="signUpInputs"> 
                 <br /><label htmlFor='username'>
                     Username:
@@ -27,6 +22,7 @@ function SignUp(props) {
                         type='text'
                         placeholder='Create your Username'
                     />
+                    {errors.username? <p>{errors.username}</p>: <div></div>}
                     </label>
                 <br/>
                 <label htmlFor='password'>
@@ -38,6 +34,7 @@ function SignUp(props) {
                         type='password'
                         placeholder='Create your Password'
                     />
+                    {errors.password? <p>{errors.password}</p>: <div></div>}
                     </label>
                 <br/>
                 <label htmlFor='confirmPassword'>Confirm Password:
@@ -48,6 +45,7 @@ function SignUp(props) {
                         name='confirmPassword'
                         type='password'
                     />
+                    {errors.confirmPassword? <p>{errors.confirmPassword}</p>: <div></div>}
                 </label>
             </div>
             <br/>

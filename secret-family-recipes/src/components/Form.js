@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
 import { connect } from 'react-redux';
+import Nav from "./Nav.js"
+
 
 
 import SignUp from "./SignUp"
@@ -88,10 +90,8 @@ const Form =props =>{
     }
     
     return(
-        <div>
-            <div>
-                <h1>Save your Secret Recipes Online</h1>
-            </div>
+        <>
+            <Nav title='Sign Up'/>
             <SignUp
                 values={formValues}
                 changeHandler={changeHandler}
@@ -99,7 +99,7 @@ const Form =props =>{
                 disabled={formDisabled}
                 errors={formErrors}
             />
-        </div>
+        </>
     )
 }
 

@@ -107,7 +107,7 @@ export const deleteRecipe = (userID, recipeID) => dispatch =>{
     
     dispatch({type:DELETE_RECIPES_START});
     axiosWithAuth()
-    .delete(`/users/${userID}/recipes${recipeID}`)
+    .delete(`/users/${userID}/recipes/${recipeID}`)
     .then(res =>{
         dispatch({type:DELETE_RECIPES_SUCCESS, payload: res.data});
         console.log(res.data,'res data')

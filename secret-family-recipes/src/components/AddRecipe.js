@@ -1,4 +1,5 @@
 import React from "react"
+import ImageUpload from './ImageUpload.js'
 
 
 export default function AddRecipe(props){
@@ -39,6 +40,7 @@ export default function AddRecipe(props){
                     {recipeErrors.description ? <p>{recipeErrors.description}</p> : <div></div>}
                 </label>
                 <br />
+                <ImageUpload/>
                 <label>Image URL:
                     <input
                         name="imageURL"
